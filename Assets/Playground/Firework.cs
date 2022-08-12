@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Firework : MonoBehaviour
 {
-    //set in inspector
+    // set in inspector
     [SerializeField] private GameObject gravityBaseBullet;
-    [SerializeField] private int cluster = 8;
-    [SerializeField] private float miniBulletSpeed = 3;
+    [SerializeField] private int cluster; //default 5 or 8
+    [SerializeField] private float miniBulletSpeed; //the speed of the clustered bullets; default 3 with gravity 1, default 2 with gravity 0.6
 
-    public float speed = 10;
-    public float angle = -20;
+    // randomized in FireworkLauncher
+    public float speed;
+    public float angle;
 
     private Rigidbody2D rb;
     private Color thisColor;
@@ -50,7 +51,7 @@ public class Firework : MonoBehaviour
     {
         for (int i = 0; i < num; i++)
         {
-            GameObject bullet = Instantiate(gravityBaseBullet, transform.position, Quaternion.Euler(Vector3.forward * i * 360 / num));
+            GameObject bullet = Instantiate(gravityBaseBullet, transform.position, Quaternion.Euler(Vector3.forward * (i * 360 / num + 90)));
             bullet.transform.GetChild(0).GetComponent<SpriteRenderer>().color = thisColor;
             Rigidbody2D bulletRB = bullet.GetComponent<Rigidbody2D>();
             bulletRB.velocity += (Vector2)bullet.transform.right * speed;

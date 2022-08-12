@@ -304,7 +304,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285214130}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10032e7179b464356809ea617610012b, type: 3}
   m_Name: 
@@ -5620,11 +5620,56 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 673291901}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: 2.67, y: 5.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &717909175
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 717909177}
+  - component: {fileID: 717909176}
+  m_Layer: 0
+  m_Name: ChaserSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &717909176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717909175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c45c83549f3546a28fce68c0b67bd03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaser: {fileID: 1339327512332792976, guid: 86fa46c81fd034de29e3b22bd090572e, type: 3}
+  timeInterval: 1
+--- !u!4 &717909177
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717909175}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.7969533, y: 2.3665314, z: -39.015717}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &808951786
 GameObject:
@@ -6367,7 +6412,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2001121846}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4373a0dc5f5724a01b7db5dc16467e14, type: 3}
   m_Name: 
@@ -6381,8 +6426,8 @@ MonoBehaviour:
   - {r: 0.81256974, g: 0.5801887, b: 1, a: 1}
   - {r: 1, g: 0.3915094, b: 0.83350736, a: 1}
   firework: {fileID: 107303791609598979, guid: 40f2463737b404006b11cd550ccda280, type: 3}
-  timeInterval: 0.7
-  additional: 1
+  timeInterval: 0.35
+  additional: 0
 --- !u!4 &2001121848
 Transform:
   m_ObjectHideFlags: 0

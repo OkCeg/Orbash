@@ -74,8 +74,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8d3601c1551949ac86e651bb3ce402f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gravityBaseBullet: {fileID: 6610330770638972583, guid: 79fd42184d9a04f6d84558ddcfa32a49, type: 3}
+  cluster: 5
+  miniBulletSpeed: 1.5
   speed: 8
   angle: -10
-  gravityBaseBullet: {fileID: 6610330770638972583, guid: 79fd42184d9a04f6d84558ddcfa32a49, type: 3}
-  cluster: 8
-  miniBulletSpeed: 3

@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Circler : MonoBehaviour
+public class Circler : ColorRandomizer
 {
     //set in inspector
-    [SerializeField] private Color[] colors;
     [SerializeField] private GameObject movingBullet;
     [SerializeField] private int angleInterval = 27;
     [SerializeField] private float timeInterval = 0.1f;
