@@ -12,7 +12,16 @@
  * Version History (8/11/22)
  * 
  * V1.0.1
- * -firework balancing
+ * -Firework balancing
  * -finished & balanced Chaser and SpawnChasers
  * -ToDo: FireworkLauncher changes
+ */
+
+/* 
+ * Version History (8/12/22)
+ * 
+ * V1.0.2
+ * -finished Explosion and SpawnExplosions
+ * -Chaser and Explosion balancing
+ * -ToDo: WebGL performance, canvas overhaul + scale, damage sfx
  */

@@ -26,15 +26,14 @@ public class Chaser : ColorRandomizer
     // Shoot towards player
     private IEnumerator Shoot()
     {
+        // 0.5 second delay
         yield return new WaitForSeconds(0.5f);
 
         for (int i = 0; i < fireCount; i++)
         {
-            print("yo");
+            Vector3 face = target.position - thisPosition;
             for (int j = 0; j < bulletCount; j++)
             {
-                print("yo2");
-                Vector3 face = target.position - thisPosition;
                 rotation = Mathf.Atan2(face.y, face.x) * Mathf.Rad2Deg + spread * (j - bulletCount / 2);
 
                 GameObject mb = Instantiate(moveBullet, transform.position, Quaternion.Euler(0, 0, rotation));

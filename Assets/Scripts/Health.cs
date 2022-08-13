@@ -11,6 +11,7 @@ public class Health : MonoBehaviour
 
     public static int HP;
     public static bool Invincible;
+    public static bool InvincibleByDamage; //used to toggle invincibility when damaged vs dashing
     public static bool Alive = true;
 
     //for changing health text color when hit (unused as of post-firework balancing)
@@ -57,8 +58,10 @@ public class Health : MonoBehaviour
     private IEnumerator IFrames(float time)
     {
         Invincible = true;
+        InvincibleByDamage = true;
         yield return new WaitForSeconds(time);
         Invincible = false;
+        InvincibleByDamage = false;
     }
 
     /*private void ChangeHealthText()

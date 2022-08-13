@@ -41,10 +41,10 @@ public class Dash : MonoBehaviour
 
         if (Input.GetKeyDown("x"))
         {
-            //for starting the timer on the dash time
+            // for starting the timer on the dash time
             dashTimeLeft = startDashTime;
 
-            //i-frames for dashing
+            // i-frames for dashing
             Health.Invincible = true;
             turnedOff = false;
         }
@@ -53,7 +53,11 @@ public class Dash : MonoBehaviour
         {
             if (!turnedOff)
             {
-                Health.Invincible = false;
+                // don't turn off if invincible due to taking damage
+                if (!Health.InvincibleByDamage)
+                {
+                    Health.Invincible = false;
+                }
                 turnedOff = true;
             }
             rb.velocity = Vector2.zero;
