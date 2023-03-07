@@ -9,7 +9,7 @@ public class FireworkLauncher : ColorRandomizer
     [SerializeField] private float timeInterval; //default 0.4 if single, 0.8 if double
     [SerializeField] private int additional; //default 0
     [SerializeField] private float delay; //delay before fire; default 0
-    [SerializeField] private bool normal; //launch fireworks reversed if false
+    [SerializeField] private bool toRight; //launch fireworks reversed if false
 
     // initial bullet launch speed
     private float angle;
@@ -18,7 +18,7 @@ public class FireworkLauncher : ColorRandomizer
 
     private void Start()
     {
-        if (normal)
+        if (toRight)
         {
             StartCoroutine(Launch());
         }

@@ -2,21 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//all commented numbers in parentheses are post-firework balancing
+// Player movement
 public class Movement : MonoBehaviour
 {
-    public GameObject hero;
-    public Transform pos;
+    public GameObject player;
+    public Transform pos; // note that RigidBody2D velocity-based movement interferes with Dash
     public ParticleSystem ps;
 
-
-    //the speed of player movement (0.05)
+    // the speed of player movement
     public float speed;
 
-    //how much to shrink by (0.8)
+    // how much to shrink by (0.8)
     public float scale;
 
-    //time for full shrink to happen (10)
+    // time for full shrink to happen (10)
     public float scaleTime;
 
     private Vector3 normalScale;
@@ -27,8 +26,8 @@ public class Movement : MonoBehaviour
 
     private void Start()
     {
-        hero = gameObject;
-        pos = hero.transform;
+        player = gameObject;
+        pos = player.transform;
         ps = GetComponentInChildren<ParticleSystem>();
 
         normalScale = new Vector3(pos.localScale.x, pos.localScale.y, pos.localScale.z);

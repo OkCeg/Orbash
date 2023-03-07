@@ -7,6 +7,8 @@ TagManager:
   - Bullet
   - Audio
   - Enemy
+  - PlayerProjectile
+  - PlayerSlash
   layers:
   - Default
   - TransparentFX

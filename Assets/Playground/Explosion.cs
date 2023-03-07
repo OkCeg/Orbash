@@ -6,14 +6,14 @@ public class Explosion : ColorRandomizer
 {
     // Set in inspector
     [SerializeField] private GameObject moveBullet;
-    [SerializeField] private float initialSpeed; //initial speed of bullet; default 2
-    [SerializeField] private float afterSpeed; //speed of bullet after initial speed; default 1
-    [SerializeField] private float scale; //size scale of bullet; default 0.4
-    [SerializeField] private float delay; //delay until explosion; default 0.5
-    [SerializeField] private float speedDelay; //delay until speed change; default 0.2
-    [SerializeField] private int bulletNum; //number of bullets in explosion; default 32
+    [SerializeField] private float scale = 0.3f; //size scale of bullet
+    [SerializeField] private float delay = 0.5f; //delay until explosion
+    [SerializeField] private float speedDelay = 0.2f; //delay until speed change
 
     private Color randomColor; //randomized at start
+    public float initialSpeed = 8f; //initial speed of bullet
+    public float afterSpeed = 4f; //speed of bullet after initial speed
+    public int bulletNum = 32; //number of bullets in explosion
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +35,7 @@ public class Explosion : ColorRandomizer
             bullet.GetComponent<MoveBullet>().speed = initialSpeed;
             bullet.transform.GetChild(0).GetComponent<SpriteRenderer>().color = randomColor;
             bullet.transform.localScale *= scale;
-            bullet.GetComponentInChildren<Light>().range *= scale;
+            // bullet.GetComponentInChildren<Light>().range *= scale;
         }
 
         GetComponent<SpriteRenderer>().sprite = null;

@@ -9,6 +9,7 @@ public class Circler : ColorRandomizer
     [SerializeField] private int angleInterval = 27;
     [SerializeField] private float timeInterval = 0.1f;
     [SerializeField] private int additional = 0;
+    [SerializeField] private float bulletSpeed = 8f;
 
     private int angle = 0;
     private int count = 0;
@@ -26,6 +27,7 @@ public class Circler : ColorRandomizer
             {
                 GameObject bullet = Instantiate(movingBullet, transform.position, Quaternion.Euler(Vector3.forward * (angle + j * 360 / (additional + 1))));
                 bullet.transform.GetChild(0).GetComponent<SpriteRenderer>().color = colors[count];
+                bullet.GetComponent<MoveBullet>().speed = bulletSpeed;
             }
 
             angle += angleInterval;

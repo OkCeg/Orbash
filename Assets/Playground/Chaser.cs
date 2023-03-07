@@ -6,11 +6,11 @@ public class Chaser : ColorRandomizer
 {
     // Set in inspector
     [SerializeField] private GameObject moveBullet;
-    [SerializeField] private float speed; //default 12
-    [SerializeField] private float timeInterval; //default 0.07
-    [SerializeField] private float fireCount; //default 3
-    [SerializeField] private float spread; //default 20; spread angle when bulletCount is at least 2
-    [SerializeField] private int bulletCount; //default 1; should be odd to ensure symmetry
+    [SerializeField] private float speed = 48f; // speed of bullets
+    [SerializeField] private float timeInterval = 0.07f; // time between bullet shots
+    [SerializeField] private int fireCount = 3; // how many times bullet is fired
+    [SerializeField] private float spread = 20f; // spread angle when bulletCount is at least 2
+    [SerializeField] private int bulletCount = 1; // should be odd to ensure symmetry
 
     private float rotation;
     private Transform target;
@@ -26,9 +26,6 @@ public class Chaser : ColorRandomizer
     // Shoot towards player
     private IEnumerator Shoot()
     {
-        // 0.5 second delay
-        yield return new WaitForSeconds(0.5f);
-
         for (int i = 0; i < fireCount; i++)
         {
             Vector3 face = target.position - thisPosition;

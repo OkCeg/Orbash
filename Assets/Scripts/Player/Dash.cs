@@ -2,44 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//all commented numbers in parentheses are post-firework balancing
+// Player dash
 public class Dash : MonoBehaviour
 {
-    public GameObject hero;
-    public Transform pos;
-    public Rigidbody2D rb;
-    public Transform ps;
+    private GameObject player;
+    private Transform pos;
+    private Rigidbody2D rb;
+    private Transform ps; // partilcle system
 
-    //checks the time to stop the dash (0.15)
+    // checks the time to stop the dash
     public float startDashTime;
 
-    //checks the timer for startDashTime
+    // checks the timer for startDashTime
     private float dashTimeLeft;
 
-    //the speed at which the hero dashes (8)
+    // the speed at which the player dashes
     public float dashSpeed;
 
-    private float diaDash;
-    private int direction;
+    public int direction;
 
-    //for one time invincibility disable (necessary so that damage invincibility works)
+    // for one time invincibility disable (necessary so that damage invincibility works)
     private bool turnedOff = true;
 
     private void Start()
     {
-        hero = gameObject;
-        pos = hero.transform;
+        player = gameObject;
+        pos = player.transform;
         rb = GetComponent<Rigidbody2D>();
         ps = transform.GetChild(0);
-
-        diaDash = dashSpeed * Mathf.Sqrt(2) / 2;
     }
 
     private void Update()
     {
         DashDirection();
 
-        if (Input.GetKeyDown("x"))
+        if (Input.GetKeyDown(KeyCode.X))
         {
             // for starting the timer on the dash time
             dashTimeLeft = startDashTime;
@@ -66,6 +63,11 @@ public class Dash : MonoBehaviour
         {
             dashTimeLeft -= Time.deltaTime;
 
+            rb.velocity = Quaternion.Euler(0, 0, 45 * direction) * Vector2.right * dashSpeed;
+
+            // Old method of calculating velocity
+            /*
+            float diaDash = dashSpeed* Mathf.Sqrt(2) / 2;
             switch (direction)
             {
                 case 0:
@@ -96,12 +98,14 @@ public class Dash : MonoBehaviour
                     Debug.Log("how did we get here?");
                     break;
             }
+            */
         }
     }
 
-    //might be able to save code length and performance speed by sharing with Movement.cs
+    // Might be able to save code length and performance speed by sharing with Movement.cs
     private void DashDirection()
     {
+        // direction 0 starts from right and goes counterclockwise
         if (Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.DownArrow))
         {
             direction = 0;

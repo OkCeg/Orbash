@@ -6,8 +6,11 @@ public class SpawnExplosions : MonoBehaviour
 {
     // Set in inspector
     [SerializeField] GameObject explosion;
-    [SerializeField] float timeInterval; //default 0.6
-    [SerializeField] float spawnCount; //default 12
+    [SerializeField] private float explosionInitialSpeed; // default 2
+    [SerializeField] private float explosionAfterSpeed; // default 1
+    [SerializeField] private float timeInterval; // default 0.6
+    [SerializeField] private float spawnCount; // default 12
+    [SerializeField] private int bulletNum; // default 32
 
     private GameObject player;
     private Vector2 previouslyFired;
@@ -24,7 +27,11 @@ public class SpawnExplosions : MonoBehaviour
         for (int i = 0; i < spawnCount; i++)
         {
             Vector2 coords = AwayFromPlayer();
-            Instantiate(explosion, coords, Quaternion.identity);
+            GameObject explode = Instantiate(explosion, coords, Quaternion.identity);
+            Explosion explosionComponnet = explode.GetComponent<Explosion>();
+            explosionComponnet.initialSpeed = explosionInitialSpeed;
+            explosionComponnet.afterSpeed = explosionAfterSpeed;
+            explosionComponnet.bulletNum = bulletNum;
 
             yield return new WaitForSeconds(timeInterval);
         }
@@ -46,6 +53,6 @@ public class SpawnExplosions : MonoBehaviour
             coords = new Vector2(Random.Range(-3.75f, 3.75f), Random.Range(-5f, 5f));
         }
         print("Too long! Edit the coordinates.");
-        return new Vector2(0, 0);
+        return coords;
     }
 }

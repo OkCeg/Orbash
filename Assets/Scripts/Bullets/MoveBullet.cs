@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoveBullet : MonoBehaviour
 {
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
 
     public float speed;
 
