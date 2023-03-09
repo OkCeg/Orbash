@@ -3,78 +3,60 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-// Player attack
+// Player attack with a projectile
 public class Slash : MonoBehaviour
 {
-    private GameObject player;
-    private Transform pos;
-    private int direction = 0; // determine direction of attack
+    private Dash dash; // determine direction of attack
+    private int direction = 0; // use Dash direction value for calculations
+    private GameObject enemy; // for projectile homing
 
-    public float projectileSpeed;
-    public GameObject slash;
-    public GameObject projectile;
+    [SerializeField] private GameObject slash;
+    [SerializeField] private GameObject projectile;
 
-    private void Start()
+    public float homingAngle = 15f; // half of full homing leniency (left and right homing available)
+
+    private void Awake()
     {
-        player = gameObject;
-        pos = player.transform;
+        enemy = GameObject.FindGameObjectWithTag("Enemy");
+        dash = GetComponent<Dash>();
     }
 
     // ToDo: When animating slash, make sure it can go in both directions. Also make sure to change projectile information when adding slash.
     private void Update()
     {
-        SlashDirection();
         if (Input.GetKeyDown(KeyCode.C))
         {
+            direction = dash.direction;
             SpawnSlashAndProjectile();
         }
     }
 
-    private void SpawnSlashAndProjectile()
+    public void SpawnSlashAndProjectile()
     {
-        Vector3 spawnLoc = pos.position + Quaternion.Euler(0, 0, 45 * direction) * new Vector3(1, 0, 0);
+        Quaternion rotation = Quaternion.Euler(0, 0, 45 * direction);
 
-        Instantiate(slash, spawnLoc, Quaternion.Euler(0, 0, 45 * direction));
+        if (enemy != null)
+        {
+            // homing projectile angle check
+            Vector3 angleFromEnemy = enemy.transform.position - transform.position;
 
-        GameObject projectileObject = Instantiate(projectile, spawnLoc, Quaternion.Euler(0, 0, 45 * direction));
-        projectileObject.GetComponent<MoveBullet>().speed = projectileSpeed;
-    }
+            float zRotation = Mathf.Atan2(angleFromEnemy.y, angleFromEnemy.x) * Mathf.Rad2Deg;
+            // atan2 range is (-pi, pi) so Quadrants I and II are valid without change
+            if (angleFromEnemy.x < 0 && angleFromEnemy.y < 0 || angleFromEnemy.x > 0 && angleFromEnemy.y < 0) // check Quadrants III and IV
+            {
+                zRotation += 360;
+            }
 
-    // Might be able to save code length and performance speed by sharing with Movement.cs
-    private void SlashDirection()
-    {
-        // direction 0 starts from right and goes counterclockwise
-        if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
-        {
-            direction = 0;
+            // home if within homing angle
+            if (zRotation < 45 * direction + homingAngle && zRotation > 45 * direction - homingAngle)
+            {
+                rotation = Quaternion.Euler(0, 0, zRotation);
+            }
         }
-        else if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
-        {
-            direction = 1;
-        }
-        else if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
-        {
-            direction = 2;
-        }
-        else if (!Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
-        {
-            direction = 3;
-        }
-        else if (!Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
-        {
-            direction = 4;
-        }
-        else if (!Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.S))
-        {
-            direction = 5;
-        }
-        else if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.S))
-        {
-            direction = 6;
-        }
-        else if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.S))
-        {
-            direction = 7;
-        }
+
+        Vector3 spawnLoc = transform.position + rotation * new Vector3(1, 0, 0);
+
+        ObjectPool.SharedInstance.CreateSlash(spawnLoc, rotation);
+        ObjectPool.SharedInstance.CreateProjectile(spawnLoc, rotation);
     }
 }

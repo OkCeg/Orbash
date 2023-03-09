@@ -8,8 +8,8 @@ public class DestroyBullet : MonoBehaviour
     {
         if (collision.CompareTag("Bullet") || collision.CompareTag("PlayerProjectile"))
         {
-            Debug.Log("destroyed bullet");
-            Destroy(collision.gameObject);
+            // Debug.Log("destroyed bullet");
+            collision.gameObject.SetActive(false);
         }
     }
 }

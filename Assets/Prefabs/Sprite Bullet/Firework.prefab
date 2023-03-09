@@ -76,6 +76,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravityBaseBullet: {fileID: 3743295671775405098, guid: 642a67973c24a41519d1d3400e09d3e5, type: 3}
   cluster: 5
-  miniBulletSpeed: 1.5
-  speed: 8
+  miniBulletSpeed: 6
+  speed: 32
   angle: -10

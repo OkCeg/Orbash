@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.FilePathAttribute;
 
 public class Circler : ColorRandomizer
 {
     //set in inspector
-    [SerializeField] private GameObject movingBullet;
+    [SerializeField] private GameObject moveBullet;
     [SerializeField] private int angleInterval = 27;
     [SerializeField] private float timeInterval = 0.1f;
     [SerializeField] private int additional = 0;
@@ -25,9 +26,8 @@ public class Circler : ColorRandomizer
         {
             for (int j = 0; j <= additional; j++)
             {
-                GameObject bullet = Instantiate(movingBullet, transform.position, Quaternion.Euler(Vector3.forward * (angle + j * 360 / (additional + 1))));
-                bullet.transform.GetChild(0).GetComponent<SpriteRenderer>().color = colors[count];
-                bullet.GetComponent<MoveBullet>().speed = bulletSpeed;
+                Quaternion rotation = Quaternion.Euler(Vector3.forward * (angle + j * 360 / (additional + 1)));
+                ObjectPool.SharedInstance.CreateMoveBullet(transform.position, rotation, bulletSpeed, colors[count], 1);
             }
 
             angle += angleInterval;

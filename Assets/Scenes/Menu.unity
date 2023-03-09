@@ -335,7 +335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 155272369}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.1, y: 0.98, z: 0}
+  m_LocalPosition: {x: 17, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5566,7 +5566,7 @@ MonoBehaviour:
   - {r: 0.4292453, g: 0.82551086, b: 1, a: 1}
   - {r: 0.81256974, g: 0.5801887, b: 1, a: 1}
   - {r: 1, g: 0.3915094, b: 0.83350736, a: 1}
-  movingBullet: {fileID: 8268500110888657746, guid: 7f0cd4fba7391493287952f139e3ea09, type: 3}
+  moveBullet: {fileID: 8268500110888657746, guid: 7f0cd4fba7391493287952f139e3ea09, type: 3}
   angleInterval: 27
   timeInterval: 0.1
   additional: 3
@@ -6020,9 +6020,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 343df06ca3cd54536aec2fd678a8800d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 50
   slash: {fileID: 2347083546910906174, guid: b799f7e5460454a8abcd0c534f06fa53, type: 3}
   projectile: {fileID: 8914580543532698785, guid: 4212dd35766db4b0bba4155cbbf06a5d, type: 3}
+  homingAngle: 22.5
 --- !u!1 &888540980
 GameObject:
   m_ObjectHideFlags: 0
@@ -6033,7 +6033,7 @@ GameObject:
   m_Component:
   - component: {fileID: 888540981}
   m_Layer: 0
-  m_Name: BulletDestroyer
+  m_Name: Bullet Destroyer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6195,6 +6195,7 @@ GameObject:
   - component: {fileID: 1553424594}
   - component: {fileID: 1553424595}
   - component: {fileID: 1553424596}
+  - component: {fileID: 1553424597}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Enemy
@@ -6262,7 +6263,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1553424591}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.4, y: 11.2, z: 0}
+  m_LocalPosition: {x: -10.1, y: 7, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6315,15 +6316,37 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1553424591}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0545edfc53d249a19b60b9be6696e21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   chaser: {fileID: 1339327512332792976, guid: f2d8329419835454e8979b5bf5bcded2, type: 3}
   chaserSpawnCount: 100
-  timeInterval: 0.5
+  timeInterval: 0.6
   smoothTime: 0.3
+  pauseTime: 0.15
+--- !u!114 &1553424597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553424591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0f508d50815247a39c9b2e82046ccbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion: {fileID: 4719684379126347511, guid: 9449caa8c34bc4ea4ae4f3ffc839ff05, type: 3}
+  startingCoords: {x: 0, y: 12.5}
+  explosionCount: 100
+  bossTimeInterval: 0.1
+  initialSpeed: 12
+  afterSpeed: 6
+  bulletNum: 32
+  explosionAngle: 25
+  timeReductionScale: 0.95
 --- !u!1 &1783152441
 GameObject:
   m_ObjectHideFlags: 0
@@ -6442,12 +6465,71 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2001121846}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.1, y: 0.98, z: 0}
+  m_LocalPosition: {x: -17, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 32638247}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2051657846
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2051657848}
+  - component: {fileID: 2051657847}
+  m_Layer: 0
+  m_Name: Object Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2051657847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051657846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 305b3f8156d3947c497e5ab808f2da18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slashNum: 30
+  slash: {fileID: 2347083546910906174, guid: b799f7e5460454a8abcd0c534f06fa53, type: 3}
+  slashPool: []
+  projectileNum: 60
+  projectile: {fileID: 8914580543532698785, guid: 4212dd35766db4b0bba4155cbbf06a5d, type: 3}
+  projectilePool: []
+  moveBulletNum: 5000
+  moveBullet: {fileID: 8268500110888657746, guid: 7f0cd4fba7391493287952f139e3ea09, type: 3}
+  moveBulletPool: []
+  chaserNum: 50
+  chaser: {fileID: 1339327512332792976, guid: f2d8329419835454e8979b5bf5bcded2, type: 3}
+  chaserPool: []
+  explosionNum: 100
+  explosion: {fileID: 4719684379126347511, guid: 9449caa8c34bc4ea4ae4f3ffc839ff05, type: 3}
+  explosionPool: []
+--- !u!4 &2051657848
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051657846}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &6052692239888354800
 BoxCollider2D:
@@ -6792,7 +6874,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6052692240278774135}
   m_Layer: 0
-  m_Name: PlayerWall
+  m_Name: Player Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

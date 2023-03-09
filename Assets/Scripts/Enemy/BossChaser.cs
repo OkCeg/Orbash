@@ -6,9 +6,9 @@ public class BossChaser : MonoBehaviour
 {
     [SerializeField] private GameObject chaser;
     [SerializeField] private int chaserSpawnCount = 20;
-    [SerializeField] private float timeInterval = 0.4f; // time between chaser fires
+    [SerializeField] private float timeInterval = 0.55f; // time between chaser fires
     [SerializeField] private float smoothTime = 0.3f; // time it takes to move to next firing point
-    [SerializeField] private float pauseTime = 0.1f; // wait until fire
+    [SerializeField] private float pauseTime = 0.15f; // wait until fire
 
     private GameObject player;
     private Vector2 previouslyFired = new Vector2(100, 100);
@@ -46,7 +46,7 @@ public class BossChaser : MonoBehaviour
             yield return new WaitForSeconds(pauseTime);
 
             // Create chasers
-            Instantiate(chaser, transform.position, Quaternion.identity);
+            GameObject chaserObj = ObjectPool.SharedInstance.CreateChaser(transform.position);
 
             // Time interval until next chaser spawn
             yield return new WaitForSeconds(timeInterval);
@@ -60,7 +60,7 @@ public class BossChaser : MonoBehaviour
         Vector2 playerPos = new Vector2(player.transform.position.x, player.transform.position.y);
         for (int i = 0; i < 1000; i++)
         {
-            if ((coords - playerPos).magnitude > 16 && (coords - previouslyFired).magnitude > 4)
+            if ((coords - playerPos).sqrMagnitude > 256 && (coords - previouslyFired).sqrMagnitude > 16)
             {
                 previouslyFired = coords;
                 return coords;

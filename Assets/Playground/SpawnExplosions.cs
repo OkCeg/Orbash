@@ -6,11 +6,11 @@ public class SpawnExplosions : MonoBehaviour
 {
     // Set in inspector
     [SerializeField] GameObject explosion;
-    [SerializeField] private float explosionInitialSpeed; // default 2
-    [SerializeField] private float explosionAfterSpeed; // default 1
-    [SerializeField] private float timeInterval; // default 0.6
-    [SerializeField] private float spawnCount; // default 12
-    [SerializeField] private int bulletNum; // default 32
+    [SerializeField] private float explosionInitialSpeed = 8;
+    [SerializeField] private float explosionAfterSpeed = 4;
+    [SerializeField] private float timeInterval = 0.6f;
+    [SerializeField] private int spawnCount = 12;
+    [SerializeField] private int bulletNum = 32;
 
     private GameObject player;
     private Vector2 previouslyFired;
@@ -27,11 +27,8 @@ public class SpawnExplosions : MonoBehaviour
         for (int i = 0; i < spawnCount; i++)
         {
             Vector2 coords = AwayFromPlayer();
-            GameObject explode = Instantiate(explosion, coords, Quaternion.identity);
-            Explosion explosionComponnet = explode.GetComponent<Explosion>();
-            explosionComponnet.initialSpeed = explosionInitialSpeed;
-            explosionComponnet.afterSpeed = explosionAfterSpeed;
-            explosionComponnet.bulletNum = bulletNum;
+
+            GameObject explode = ObjectPool.SharedInstance.CreateExplosion(coords, explosionInitialSpeed, explosionAfterSpeed, bulletNum, 0);
 
             yield return new WaitForSeconds(timeInterval);
         }

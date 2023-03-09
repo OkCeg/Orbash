@@ -31,8 +31,8 @@ public class SpawnChasers : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             Destroy(temp);
 
-            // spawn chaser
-            Instantiate(chaser, coords, Quaternion.identity);
+            // Create chasers
+            GameObject chaserObj = ObjectPool.SharedInstance.CreateChaser(coords);
 
             yield return new WaitForSeconds(timeInterval);
         }

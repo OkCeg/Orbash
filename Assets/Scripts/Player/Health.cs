@@ -98,8 +98,8 @@ public class Health : MonoBehaviour
 
             StartCoroutine(IFrames(1.5f));
 
-            Debug.Log("ouch");
-            //ChangeHealthText();
+            // Debug.Log("ouch");
+            // ChangeHealthText();
         }
     }
 }

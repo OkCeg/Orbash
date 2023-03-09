@@ -8,7 +8,7 @@ public class MoveWithPlayer : MonoBehaviour
     private Transform playerTransform;
     private Vector3 previousPosition;
 
-    private void Start()
+    private void OnEnable()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         previousPosition = playerTransform.position;

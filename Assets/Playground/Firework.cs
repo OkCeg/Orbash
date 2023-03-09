@@ -7,7 +7,7 @@ public class Firework : MonoBehaviour
     // set in inspector
     [SerializeField] private GameObject gravityBaseBullet;
     [SerializeField] private int cluster; //default 5 or 8
-    [SerializeField] private float miniBulletSpeed; //the speed of the clustered bullets; default 3 with gravity 1, default 2 with gravity 0.6
+    [SerializeField] private float miniBulletSpeed; //the speed of the clustered bullets; default 12 with gravity 1, default 6 with gravity 0.6
 
     // randomized in FireworkLauncher
     public float speed;
@@ -43,7 +43,7 @@ public class Firework : MonoBehaviour
         if (ready && rb.velocity.y < -2)
         {
             Cluster(cluster, miniBulletSpeed);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 

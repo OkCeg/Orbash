@@ -8,10 +8,13 @@ public class MoveBullet : MonoBehaviour
 
     public float speed;
 
-    private void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
 
+    public void OnEnable()
+    {
         rb.velocity = transform.right * speed;
     }
 }

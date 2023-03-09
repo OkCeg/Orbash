@@ -14,34 +14,28 @@ public class Chaser : ColorRandomizer
 
     private float rotation;
     private Transform target;
-    private Vector3 thisPosition;
 
-    private void Start()
+    private void Awake()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
-        thisPosition = transform.position;
-        StartCoroutine(Shoot());
     }
 
     // Shoot towards player
-    private IEnumerator Shoot()
+    public IEnumerator Shoot()
     {
         for (int i = 0; i < fireCount; i++)
         {
-            Vector3 face = target.position - thisPosition;
+            Vector3 face = target.position - transform.position;
             for (int j = 0; j < bulletCount; j++)
             {
                 rotation = Mathf.Atan2(face.y, face.x) * Mathf.Rad2Deg + spread * (j - bulletCount / 2);
-
-                GameObject mb = Instantiate(moveBullet, transform.position, Quaternion.Euler(0, 0, rotation));
                 int randomColorIndex = Random.Range(0, colors.Length);
-                mb.transform.GetChild(0).GetComponent<SpriteRenderer>().color = colors[randomColorIndex];
-                mb.GetComponent<MoveBullet>().speed = speed;
+                ObjectPool.SharedInstance.CreateMoveBullet(transform.position, Quaternion.Euler(0, 0, rotation), speed, colors[randomColorIndex], 1);
             }
 
             yield return new WaitForSeconds(timeInterval);
         }
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

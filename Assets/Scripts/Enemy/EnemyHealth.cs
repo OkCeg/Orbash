@@ -11,11 +11,12 @@ public class EnemyHealth : MonoBehaviour
     {
         if (collision.CompareTag("PlayerSlash"))
         {
-            health -= 10f;
+            health -= 3f;
         }
         else if (collision.CompareTag("PlayerProjectile"))
         {
-            health -= 5f;
+            health -= collision.gameObject.GetComponent<ProjectileDamage>().damage;
+            Debug.Log(collision.gameObject.GetComponent<ProjectileDamage>().damage);
         }
 
         if (health <= 0)

@@ -38,7 +38,7 @@ public class FireworkLauncher : ColorRandomizer
             for (int j = 0; j <= additional; j++)
             {
                 angle = Random.Range(-35f, -5f);
-                speed = Random.Range(5.0f, 9.0f);
+                speed = Random.Range(15.0f, 20.0f);
 
                 GameObject fw = Instantiate(firework, transform.position, Quaternion.identity);
                 Firework fwGet = fw.GetComponent<Firework>();
