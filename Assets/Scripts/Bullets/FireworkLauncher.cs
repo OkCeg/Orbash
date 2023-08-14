@@ -16,8 +16,15 @@ public class FireworkLauncher : ColorRandomizer
     // initial bullet launch speed
     private float speed;
 
+    // cache WaitForSeconds
+    private WaitForSeconds yieldDelay;
+    private WaitForSeconds yieldInterval;
+
     private void Start()
     {
+        yieldDelay = new WaitForSeconds(delay);
+        yieldInterval = new WaitForSeconds(timeInterval);
+
         if (toRight)
         {
             StartCoroutine(Launch());
@@ -31,7 +38,7 @@ public class FireworkLauncher : ColorRandomizer
     // Fireworks!
     private IEnumerator Launch()
     {
-        yield return new WaitForSeconds(delay);
+        yield return yieldDelay;
 
         for (int i = 0; i < 1000; i++)
         {
@@ -49,14 +56,14 @@ public class FireworkLauncher : ColorRandomizer
                 fw.transform.GetChild(0).GetComponent<SpriteRenderer>().color = colors[randomColorIndex];
             }
 
-            yield return new WaitForSeconds(timeInterval);
+            yield return yieldInterval;
         }
     }
 
     // Fireworks (but flipped)!
     private IEnumerator ReverseLaunch()
     {
-        yield return new WaitForSeconds(delay);
+        yield return yieldDelay;
 
         for (int i = 0; i < 1000; i++)
         {
@@ -74,7 +81,7 @@ public class FireworkLauncher : ColorRandomizer
                 fw.transform.GetChild(0).GetComponent<SpriteRenderer>().color = colors[randomColorIndex];
             }
 
-            yield return new WaitForSeconds(timeInterval);
+            yield return yieldInterval;
         }
     }
 }

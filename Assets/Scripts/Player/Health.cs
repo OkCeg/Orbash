@@ -20,6 +20,11 @@ public class Health : MonoBehaviour
     public Color healthTwo;
     public Color healthOne;
 
+    // invincibility time
+    public float iframes = 1.5f;
+
+    private WaitForSeconds yieldIFrames;
+
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -31,6 +36,8 @@ public class Health : MonoBehaviour
 
         Invincible = false;
         Alive = true;
+
+        yieldIFrames = new WaitForSeconds(iframes);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -55,11 +62,11 @@ public class Health : MonoBehaviour
         }
     }
 
-    private IEnumerator IFrames(float time)
+    private IEnumerator IFrames()
     {
         Invincible = true;
         InvincibleByDamage = true;
-        yield return new WaitForSeconds(time);
+        yield return yieldIFrames;
         Invincible = false;
         InvincibleByDamage = false;
     }
@@ -96,7 +103,7 @@ public class Health : MonoBehaviour
                 Alive = false;
             }
 
-            StartCoroutine(IFrames(1.5f));
+            StartCoroutine(IFrames());
 
             // Debug.Log("ouch");
             // ChangeHealthText();

@@ -7,10 +7,16 @@ using UnityEngine;
 public class Deactivate : MonoBehaviour
 {
     public float timeUntilDeactivation = 1f;
+    private WaitForSeconds yieldInterval;
+
+    private void Start()
+    {
+        yieldInterval = new WaitForSeconds(timeUntilDeactivation);
+    }
 
     public IEnumerator Deactivation()
     {
-        yield return new WaitForSeconds(timeUntilDeactivation);
+        yield return yieldInterval;
         gameObject.SetActive(false);
     }
 }

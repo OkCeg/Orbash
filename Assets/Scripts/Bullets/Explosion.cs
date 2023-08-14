@@ -17,15 +17,21 @@ public class Explosion : ColorRandomizer
     public int bulletNum = 32; //number of bullets in explosion
     public float explosionAngle = 0f; // shift explosion
 
+    private WaitForSeconds yieldDelay;
+    private WaitForSeconds yieldSpeedDelay;
+
     private void Awake()
     {
         randomColor = colors[Random.Range(0, colors.Length)];
+
+        yieldDelay = new WaitForSeconds(delay);
+        yieldSpeedDelay = new WaitForSeconds(speedDelay);
     }
 
     // Explode into pieces
     public IEnumerator Explode()
     {
-        yield return new WaitForSeconds(delay);
+        yield return yieldDelay;
 
         GameObject[] bulletList = new GameObject[bulletNum];
         for (int i = 0; i < bulletNum; i++)
@@ -40,7 +46,7 @@ public class Explosion : ColorRandomizer
         }
 
         GetComponent<SpriteRenderer>().sprite = null;
-        yield return new WaitForSeconds(speedDelay);
+        yield return yieldSpeedDelay;
 
         for (int i = 0; i < bulletNum; i++)
         {

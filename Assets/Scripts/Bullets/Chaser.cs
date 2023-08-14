@@ -14,10 +14,13 @@ public class Chaser : ColorRandomizer
 
     private float rotation;
     private Transform target;
+    private WaitForSeconds yieldInterval;
 
     private void Awake()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
+
+        yieldInterval = new WaitForSeconds(timeInterval);
     }
 
     // Shoot towards player
@@ -33,7 +36,7 @@ public class Chaser : ColorRandomizer
                 ObjectPool.SharedInstance.CreateMoveBullet(transform.position, Quaternion.Euler(0, 0, rotation), speed, colors[randomColorIndex], 1);
             }
 
-            yield return new WaitForSeconds(timeInterval);
+            yield return yieldInterval;
         }
 
         gameObject.SetActive(false);

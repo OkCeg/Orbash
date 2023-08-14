@@ -16,10 +16,19 @@ public class BossChaser : MonoBehaviour
     private Vector2 coords = Vector2.zero; // position to move to
     private bool moveToCoords = false;
 
+    // cache the WaitForSeconds
+    WaitForSeconds yieldSmooth;
+    WaitForSeconds yieldPause;
+    WaitForSeconds yieldInterval;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         StartCoroutine(ChaserSpawn());
+
+        yieldSmooth = new WaitForSeconds(smoothTime);
+        yieldPause = new WaitForSeconds(pauseTime);
+        yieldInterval = new WaitForSeconds(timeInterval);
     }
 
     private void Update()
@@ -39,17 +48,17 @@ public class BossChaser : MonoBehaviour
             coords = AwayFromPlayer();
 
             // Wait until enemy moves to coords
-            yield return new WaitForSeconds(smoothTime);
+            yield return yieldSmooth;
             moveToCoords = false;
 
             // Wait to fire
-            yield return new WaitForSeconds(pauseTime);
+            yield return yieldPause;
 
             // Create chasers
             GameObject chaserObj = ObjectPool.SharedInstance.CreateChaser(transform.position);
 
             // Time interval until next chaser spawn
-            yield return new WaitForSeconds(timeInterval);
+            yield return yieldInterval;
         }
     }
 

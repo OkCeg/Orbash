@@ -14,11 +14,13 @@ public class SpawnExplosions : MonoBehaviour
 
     private GameObject player;
     private Vector2 previouslyFired;
+    private WaitForSeconds yieldInterval;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         previouslyFired = new Vector2(100, 100);
+        yieldInterval = new WaitForSeconds(timeInterval);
         StartCoroutine(Spawn());
     }
 
@@ -30,7 +32,7 @@ public class SpawnExplosions : MonoBehaviour
 
             GameObject explode = ObjectPool.SharedInstance.CreateExplosion(coords, explosionInitialSpeed, explosionAfterSpeed, bulletNum, 0);
 
-            yield return new WaitForSeconds(timeInterval);
+            yield return yieldInterval;
         }
     }
 

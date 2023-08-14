@@ -14,10 +14,12 @@ public class Circler : ColorRandomizer
 
     private int angle = 0;
     private int count = 0;
+    private WaitForSeconds yieldInterval;
 
     private void Start()
     {
         StartCoroutine(CircleWait());
+        yieldInterval = new WaitForSeconds(timeInterval);
     }
 
     private IEnumerator CircleWait()
@@ -38,7 +40,7 @@ public class Circler : ColorRandomizer
                 count = 0;
             }
 
-            yield return new WaitForSeconds(timeInterval);
+            yield return yieldInterval;
         }
     }
 }

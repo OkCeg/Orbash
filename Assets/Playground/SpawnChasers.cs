@@ -12,6 +12,7 @@ public class SpawnChasers : MonoBehaviour
 
     private GameObject player;
     private Vector2 previouslyFired;
+    private WaitForSeconds yieldInterval;
 
     private void Start()
     {
@@ -20,6 +21,7 @@ public class SpawnChasers : MonoBehaviour
         StartCoroutine(Spawn());
     }
 
+    WaitForSeconds reactionInterval = new WaitForSeconds(0.5f);
     private IEnumerator Spawn()
     {
         for (int i = 0; i < spawnCount; i++)
@@ -28,13 +30,13 @@ public class SpawnChasers : MonoBehaviour
 
             // reaction time
             GameObject temp = Instantiate(temporaryBaseBullet, coords, Quaternion.identity);
-            yield return new WaitForSeconds(0.5f);
+            yield return reactionInterval;
             Destroy(temp);
 
             // Create chasers
             GameObject chaserObj = ObjectPool.SharedInstance.CreateChaser(coords);
 
-            yield return new WaitForSeconds(timeInterval);
+            yield return yieldInterval;
         }
     }
 
