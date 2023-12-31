@@ -29,10 +29,20 @@ public class ObjectPool : MonoBehaviour
     public GameObject chaser;
     public List<GameObject> chaserPool;
 
-    // Explosion prefab
+    // Particle explosion prefab
     public int explosionNum;
     public GameObject explosion;
     public List<GameObject> explosionPool;
+
+    // Arrow prefab
+    public int arrowNum;
+    public GameObject arrow;
+    public List<GameObject> arrowPool;
+
+    // Boss slash projectile prefab
+    public int bossSlashNum;
+    public GameObject bossSlash;
+    public List<GameObject> bossSlashPool;
 
     private void Awake()
     {
@@ -56,14 +66,14 @@ public class ObjectPool : MonoBehaviour
             projectilePool.Add(tmp);
         }
 
-        moveBulletPool = new List<GameObject>();
-        for (int i = 0; i < moveBulletNum; i++)
-        {
-            tmp = Instantiate(moveBullet, transform);
-            tmp.SetActive(false);
-            moveBulletPool.Add(tmp);
-        }
-        originalScale = moveBullet.transform.localScale;
+        //moveBulletPool = new List<GameObject>();
+        //for (int i = 0; i < moveBulletNum; i++)
+        //{
+        //    tmp = Instantiate(moveBullet, transform);
+        //    tmp.SetActive(false);
+        //    moveBulletPool.Add(tmp);
+        //}
+        //originalScale = moveBullet.transform.localScale;
 
         chaserPool = new List<GameObject>();
         for (int i = 0; i < chaserNum; i++)
@@ -79,6 +89,22 @@ public class ObjectPool : MonoBehaviour
             tmp = Instantiate(explosion, transform);
             tmp.SetActive(false);
             explosionPool.Add(tmp);
+        }
+
+        arrowPool = new List<GameObject>();
+        for (int i = 0; i < arrowNum; i++)
+        {
+            tmp = Instantiate(arrow, transform);
+            tmp.SetActive(false);
+            arrowPool.Add(tmp);
+        }
+
+        bossSlashPool = new List<GameObject>();
+        for (int i = 0; i < bossSlashNum; i++)
+        {
+            tmp = Instantiate(bossSlash, transform);
+            tmp.SetActive(false);
+            bossSlashPool.Add(tmp);
         }
     }
 
@@ -159,8 +185,8 @@ public class ObjectPool : MonoBehaviour
         return null;
     }
 
-    // Initialize all fields for explosions and start the explosion
-    public GameObject CreateExplosion(Vector2 spawnLoc, float initialSpeed, float afterSpeed, int bulletNum, float explosionAngle)
+    // UNUSED: For the old rigid body explosion
+    public GameObject CreateRigidBodyExplosion(Vector2 spawnLoc, float initialSpeed, float afterSpeed, int bulletNum, float explosionAngle)
     {
         for (int i = 0; i < explosionNum; i++)
         {
@@ -179,6 +205,70 @@ public class ObjectPool : MonoBehaviour
                 StartCoroutine(explosionComponent.Explode());
 
                 return explosionObj;
+            }
+        }
+        return null;
+    }
+
+    public GameObject CreateParticleExplosion(Vector2 spawnLoc, int bulletNum, float initialAngle)
+    {
+        for (int i = 0; i < explosionNum; i++)
+        {
+            GameObject explosionObj = explosionPool[i];
+            if (!explosionObj.activeInHierarchy)
+            {
+                explosionObj.transform.position = spawnLoc;
+
+                ParticleExplosion explosionComponent = explosionObj.GetComponent<ParticleExplosion>();
+                explosionComponent.bulletNum = bulletNum;
+                explosionComponent.initialAngle = initialAngle;
+
+                explosionObj.SetActive(true);
+                explosionComponent.Reset();
+
+                return explosionObj;
+            }
+        }
+        return null;
+    }
+
+    // Initialize all fields for the arrow attack
+    public GameObject CreateArrow(Vector2 spawnLoc, float timeUntilFire)
+    {
+        for (int i = 0; i < arrowNum; i++)
+        {
+            GameObject arrowObj = arrowPool[i];
+            if (!arrowObj.activeInHierarchy)
+            {
+                arrowObj.transform.position = spawnLoc;
+                Arrow arrowComponent = arrowObj.GetComponent<Arrow>();
+                arrowComponent.timeUntilFire = timeUntilFire;
+
+                arrowObj.SetActive(true);
+                arrowComponent.Reset(); // Reset after activating object for correct particle coroutine start
+
+                return arrowObj;
+            }
+        }
+        return null;
+    }
+
+    // Initialize all fields for boss slash projectile
+    public GameObject CreateBossSlash(Vector2 spawnLoc, Quaternion rotation, Vector2 velocity)
+    {
+        for (int i = 0; i < bossSlashNum; i++)
+        {
+            GameObject bossSlashObj = bossSlashPool[i];
+            if (!bossSlashObj.activeInHierarchy)
+            {
+                bossSlashObj.transform.position = spawnLoc;
+                bossSlashObj.transform.rotation = rotation;
+
+                bossSlashObj.SetActive(true);
+                bossSlashObj.GetComponent<Rigidbody2D>().velocity = velocity; // Note that velocity must be set after the object is active
+                bossSlashObj.GetComponent<BossSlashProjectile>().Reset();
+
+                return bossSlashObj;
             }
         }
         return null;

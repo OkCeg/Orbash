@@ -10,13 +10,13 @@ public class BossExplosions : MonoBehaviour
     [SerializeField] private Vector2 startingCoords;
 
     // Boss firing bullets
-    [SerializeField] private int explosionCount = 25; // how many explosions will occur at boss
-    [SerializeField] private float bossTimeInterval = 0.6f; // how often the boss will fire explosion
+    [SerializeField] private int explosionCount = 25; // How many explosions will occur at boss
+    [SerializeField] private float bossTimeInterval = 0.6f; // How often the boss will fire explosion
     [SerializeField] private float initialSpeed = 12f;
     [SerializeField] private float afterSpeed = 6f;
     [SerializeField] private int bulletNum = 32;
-    [SerializeField] private float explosionAngle = 25f; // angle change between explosions at boss
-    [SerializeField] private float timeReductionScale = 0.95f; // decrease time interval
+    [SerializeField] private float explosionAngle = 25f; // Angle difference between explosions at boss
+    [SerializeField] private float timeReductionScale = 0.95f; // Decrease time interval
 
     private Vector3 velocity = Vector3.zero;
     private GameObject player;
@@ -41,9 +41,9 @@ public class BossExplosions : MonoBehaviour
     {
         for (int i = 0; i < explosionCount; i++)
         {
-            GameObject explode = ObjectPool.SharedInstance.CreateExplosion(transform.position, initialSpeed, afterSpeed, bulletNum, explosionAngle * i);
+            GameObject explode = ObjectPool.SharedInstance.CreateRigidBodyExplosion(transform.position, initialSpeed, afterSpeed, bulletNum, explosionAngle * i);
 
-            yield return new WaitForSecondsRealtime(bossTimeInterval); // fixed interval even when there is some lag
+            yield return new WaitForSeconds(bossTimeInterval);
 
             bossTimeInterval *= timeReductionScale;
         }

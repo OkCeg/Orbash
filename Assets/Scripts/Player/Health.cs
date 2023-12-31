@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public SpriteRenderer sr;
+    private SpriteRenderer sr;
 
     public static Color Normal;
     public Color invincibleColor;
@@ -93,7 +93,15 @@ public class Health : MonoBehaviour
 
     private void LoseHealth(Collider2D collision)
     {
-        if (collision.CompareTag("Bullet") && !Invincible)
+        if (collision.CompareTag("Bullet") || collision.CompareTag("Attack"))
+        {
+            LoseHealth();
+        }
+    }
+
+    public void LoseHealth()
+    {
+        if (!Invincible)
         {
             HP--;
 
@@ -104,9 +112,7 @@ public class Health : MonoBehaviour
             }
 
             StartCoroutine(IFrames());
-
-            // Debug.Log("ouch");
-            // ChangeHealthText();
+            Debug.Log("ouch");
         }
     }
 }

@@ -45,7 +45,6 @@ public class Summoner : MonoBehaviour
                     Instantiate(standardBullet, new Vector3(-9f, Random.Range(-3.4f, 4.8f), 0), Quaternion.identity);
                     break;
                 default:
-                    Debug.Log("how did we get here?");
                     break;
             }*/
 

@@ -16,7 +16,7 @@ public class BossChaser : MonoBehaviour
     private Vector2 coords = Vector2.zero; // position to move to
     private bool moveToCoords = false;
 
-    // cache the WaitForSeconds
+    // Cache the WaitForSeconds
     WaitForSeconds yieldSmooth;
     WaitForSeconds yieldPause;
     WaitForSeconds yieldInterval;

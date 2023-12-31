@@ -15,15 +15,15 @@ public class ParticlePerformanceTest : MonoBehaviour
     {
         if (testParticle)
         {
-            StartCoroutine(Many());
+            StartCoroutine(ParticleTest());
         }
         else
         {
-            StartCoroutine(Many2());
+            StartCoroutine(GameObjectTest());
         }
     }
 
-    private IEnumerator Many()
+    private IEnumerator ParticleTest()
     {
         for (int i = 0; i < 100; i++)
         {
@@ -32,11 +32,12 @@ public class ParticlePerformanceTest : MonoBehaviour
         }
     }
 
-    private IEnumerator Many2()
+    private IEnumerator GameObjectTest()
     {
-        for (int i = 0; i < 100; i++)
+        // Turned down to prevent lag
+        for (int i = 0; i < 10; i++)
         {
-            ObjectPool.SharedInstance.CreateExplosion(Vector2.zero, 8, 4, 32, 0);
+            ObjectPool.SharedInstance.CreateRigidBodyExplosion(Vector2.zero, 8, 4, 32, 0);
             yield return yieldInterval;
         }
     }

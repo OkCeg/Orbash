@@ -30,7 +30,7 @@ public class SpawnExplosions : MonoBehaviour
         {
             Vector2 coords = AwayFromPlayer();
 
-            GameObject explode = ObjectPool.SharedInstance.CreateExplosion(coords, explosionInitialSpeed, explosionAfterSpeed, bulletNum, 0);
+            GameObject explode = ObjectPool.SharedInstance.CreateRigidBodyExplosion(coords, explosionInitialSpeed, explosionAfterSpeed, bulletNum, 0);
 
             yield return yieldInterval;
         }
