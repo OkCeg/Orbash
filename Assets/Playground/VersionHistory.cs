@@ -213,3 +213,16 @@
  * - ToDo: Scythe attack
  * 
  */
+
+/*
+ * v.1.0.3 (12/30/23)
+ * 
+ * - Scythe art
+ * - Scythe path test using Bezier curves
+ * 
+ * With help from Alexander Zotov's Bezier curve video:
+ * https://www.youtube.com/watch?v=11ofnLOE8pw
+ * 
+ * - ToDo: Scythe attack
+ * 
+ */
